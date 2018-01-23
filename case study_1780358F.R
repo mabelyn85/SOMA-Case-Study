@@ -148,11 +148,13 @@ setwd("C:/Users/acer 1/Desktop/Case study")
   
   all.scores = rbind(Oracle.scores, SAP.scores)
   ggplot(data=all.scores) + # ggplot works on data.frames, always
-    geom_bar(mapping=aes(x=score, fill=Team), binwidth=1) +
+    geom_histogram(mapping=aes(x=score, fill=Team), binwidth=1) +
     facet_grid(Team~.) + # make a separate plot for each hashtag
     theme_bw() + scale_fill_brewer(palette = "Oranges") # plain display, nicer colors
   
 
+  all.scores$very.pos.bool = all.scores$score >=2
+  all.scores$very.neg.bool = all.scores$score <= -2
   
   twitter.df = ddply(all.scores,c('Team'), summarise,
                      very.pos.count=sum(very.pos.bool),
