@@ -152,4 +152,14 @@ setwd("C:/Users/acer 1/Desktop/Case study")
     facet_grid(Team~.) + # make a separate plot for each hashtag
     theme_bw() + scale_fill_brewer(palette = "Oranges") # plain display, nicer colors
   
+
   
+  twitter.df = ddply(all.scores,c('Team'), summarise,
+                     very.pos.count=sum(very.pos.bool),
+                     very.neg.count=sum(very.neg.bool))
+  
+  twitter.df$very.tot = twitter.df$very.pos.count +
+    twitter.df$very.neg.count
+  
+  twitter.df$score= round(100*twitter.df$very.pos.count/twitter.df$very.tot)
+ 
